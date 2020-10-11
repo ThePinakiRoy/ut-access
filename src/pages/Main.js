@@ -18,7 +18,7 @@ export class Main extends Component {
 
     componentDidMount() {
 
-        fetch('https://raw.githubusercontent.com/ThePinakiRoy/ut-access/main/public/data/initial.json', {
+        fetch('./data/initial.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
