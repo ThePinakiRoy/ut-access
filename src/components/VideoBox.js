@@ -17,7 +17,7 @@ export default function VideoBox(props) {
             <iframe
             width="250"
             height="175"
-            src={"https://www.youtube.com/embed/"+props.url}
+            src={"https://www.youtube.com/embed/"+props.url+"?mute=1"}
             // srcDoc={"<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href=https://www.youtube.com/embed/"+props.url+"?mute=1><img src=https://img.youtube.com/vi/"+props.url+"/hqdefault.jpg alt='Video The Dark Knight Rises: What Went Wrong? – Wisecrack Edition'><span>▶</span></a>"}
             // frameBorder="0"            
             // allowFullScreen 
