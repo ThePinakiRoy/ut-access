@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Header from './Header';
 import VideoBox from '../components/VideoBox';
 
 export class Main extends Component {
@@ -19,7 +18,7 @@ export class Main extends Component {
 
     componentDidMount() {
 
-        fetch('./data/initial.json', {
+        fetch('https://raw.githubusercontent.com/ThePinakiRoy/ut-access/main/public/data/initial.json', {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -42,13 +41,13 @@ export class Main extends Component {
                     data[randomNum]["count"] = data[randomNum]["count"] + 1;
                     data[randomNum]["id"] = data[randomNum]["count"]+data[randomNum]["url"]
                     let className = 'badge-success'
-                    if (data[randomNum]["count"] == 1 || data[randomNum]["count"] == 2) {
+                    if (data[randomNum]["count"] === 1 || data[randomNum]["count"] === 2) {
                         className = 'badge-success'
                     }
-                    if (data[randomNum]["count"] == 3 || data[randomNum]["count"] == 4) {
+                    if (data[randomNum]["count"] === 3 || data[randomNum]["count"] === 4) {
                         className = 'badge-warning'
                     }
-                    if (data[randomNum]["count"] == 5) {
+                    if (data[randomNum]["count"] === 5) {
                         className = 'badge-danger'
                     }
                     this.state.children.push(<VideoBox
@@ -96,23 +95,13 @@ export class Main extends Component {
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-
-                            <li className="nav-item active">
-                                <a className="nav-link" onClick={this.addNewVideoBox}>Add Box
-                                </a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" onClick={this.removeLocalStorage}>Clear LS</a>
-                            </li>
-
-                        </ul>
-                    </div>
+                    
                 </nav>
+
                 {/* container */}
                 <div className="container pt-5">
-                    {this.state.children.length ==0 ? <h1>Click on Add Box</h1>:<React.Fragment></React.Fragment>}
+                <a className="text-center btn btn-dark" onClick={this.addNewVideoBox}>Add Box   </a>
+                    {/* {this.state.children.length ===0 ? <h1>Click on Add Box</h1>:<React.Fragment></React.Fragment>} */}
                     <div className="row">
                         {!load
                             ? this.state.children
