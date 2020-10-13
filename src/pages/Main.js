@@ -106,7 +106,7 @@ export class Main extends Component {
                 {/* <Header /> */}
 
                 <nav className="navbar navbar-expand-lg  navbar-dark bg-dark mb-5">
-                    <a className="navbar-brand " href="#"><span className="text-center">  ut-Access</span></a>
+                    <a className="navbar-brand " href="#"><span className="text-center">  ut-Access v-1.01</span></a>
                     <button
                         className="navbar-toggler"
                         type="button"
