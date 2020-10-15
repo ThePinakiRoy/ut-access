@@ -18,29 +18,16 @@ export class Main extends Component {
             .bind(this)
     }
 
-    componentDidMount(){
-        this.setState({
-            data: JSONResult, 
-            loading: false
-        })
+    componentDidMount() {
+        this.setState({data: JSONResult, loading: false})
     }
 
-    // Old
-    // componentDidMount() {
-       
-    //     fetch('./data/initial.json', {
-       
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Accept': 'application/json'
-    //         }
-
-    //     }).then((response) => response.json()).then((messages) => {
-    //         this.setState({data: messages, loading: false})
-    //         console.log("messages", messages);
-    //     });
-    // }
-    addNewVideoBox() {
+    // Old componentDidMount() {     fetch('./data/initial.json', {         headers:
+    // {             'Content-Type': 'application/json',             'Accept':
+    // 'application/json'         }     }).then((response) =>
+    // response.json()).then((messages) => {         this.setState({data: messages,
+    // loading: false})         console.log("messages", messages);     }); }
+    addNewVideoBox(randFlag) {
         const {data} = this.state;
         this.setState({
             numBox: this.state.numBox + 1
@@ -48,17 +35,21 @@ export class Main extends Component {
         const randomNum = Math.floor(Math.random() * data.length);
         const randomHash = Math.floor(Math.random() * 25);
         let item = data[randomNum];
-        if (item["count"] < 5) {
-            data[randomNum]["count"] = data[randomNum]["count"] + 1;
+        if (item["count"] < 4) {
+            let counter = randFlag
+                ? Math.floor(Math.random() * 3)
+                : 1;
+            console.log("counter", counter)
+            data[randomNum]["count"] = data[randomNum]["count"] + counter;
             data[randomNum]["id"] = data[randomNum]["count"] + data[randomNum]["url"]
             let className = 'badge-success'
-            if (data[randomNum]["count"] === 1 || data[randomNum]["count"] === 2) {
+            if (data[randomNum]["count"] === 1 ) {
                 className = 'badge-success'
             }
-            if (data[randomNum]["count"] === 3 || data[randomNum]["count"] === 4) {
+            if (data[randomNum]["count"] === 2 || data[randomNum]["count"] === 3) {
                 className = 'badge-warning'
             }
-            if (data[randomNum]["count"] === 5) {
+            if (data[randomNum]["count"] === 4) {
                 className = 'badge-danger'
             }
             this
@@ -75,15 +66,15 @@ export class Main extends Component {
                     .removeBox
                     .bind(this)}/>);
         }
-        console.log('c', this.state.data)
+        //console.log('c', this.state.data)
     }
     removeBox(id) {
-        console.log('remove box ', id)
+        // console.log('remove box ', id)
         const newState = this.state;
         const index = newState
             .children
             .findIndex(a => a.props.id === id);
-        console.log(index)
+        //console.log(index)
         if (index === -1) 
             return;
         newState
@@ -91,7 +82,7 @@ export class Main extends Component {
             .splice(index, 1);
 
         this.setState(newState)
-        console.log('d', this.state.data)
+        //console.log('d', this.state.data)
     }
     removeLocalStorage() {}
     render() {
@@ -106,7 +97,10 @@ export class Main extends Component {
                 {/* <Header /> */}
 
                 <nav className="navbar navbar-expand-lg  navbar-dark bg-dark mb-5">
-                    <a className="navbar-brand " href="#"><span className="text-center">  ut-Access v-1.02</span></a>
+                    <a className="navbar-brand " >
+                        <span className="text-center">
+                            ut-Access v-1.03</span>
+                    </a>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -122,16 +116,41 @@ export class Main extends Component {
 
                 {/* container */}
                 <div className="container-fluid py-5 mx-3">
-                    <a className="text-center btn btn-dark my-4 btn-lg btn-block" onClick={this.addNewVideoBox}>Add Box
-                    </a>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <a
+                                className="text-center btn btn-dark my-4 btn-lg btn-block"
+                                onClick={() => this.addNewVideoBox(false)}>Add Box
+                            </a>
+                        </div>
+                        <div className="col-md-6">
+                            <a
+                                className="text-center btn btn-info my-4 btn-lg btn-block"
+                                onClick={() => this.addNewVideoBox(true)}>Add Random Box
+                            </a>
+                        </div>
+                    </div>
+
                     {/* {this.state.children.length ===0 ? <h1>Click on Add Box</h1>:<React.Fragment></React.Fragment>} */}
                     <div className="row">
                         {!load
                             ? this.state.children
                             : <p>getting data</p>}
                     </div>
-                    <a className="text-center btn btn-dark my-4 btn-lg btn-block" onClick={this.addNewVideoBox}>Add Box
-                    </a>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <a
+                                className="text-center btn btn-dark my-4 btn-lg btn-block"
+                                onClick={() => this.addNewVideoBox(false)}>Add Box
+                            </a>
+                        </div>
+                        <div className="col-md-6">
+                            <a
+                                className="text-center btn btn-info my-4 btn-lg btn-block"
+                                onClick={() => this.addNewVideoBox(true)}>Add Random Box
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
