@@ -1,6 +1,6 @@
 {
   "name": "ut-access-app",
-  "version": "0.1.0",
+  "version": "1.0.3",
   "homepage": "https://thepinakiroy.github.io/ut-access",
   "private": true,
   "dependencies": {
