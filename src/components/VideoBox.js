@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 
 export default function VideoBox(props) {
-
+    console.log('cc')
     return (
 
         <div className="col-sm col-md-3 py-3" id={props.id}>

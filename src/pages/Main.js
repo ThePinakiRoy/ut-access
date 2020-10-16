@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import VideoBox from '../components/VideoBox';
+import Header from '../components/Header';
 // import JSONResult from '../data/test.json';
 import JSONResult from '../data/initial.json';
 
@@ -11,15 +12,21 @@ export class Main extends Component {
             data: [],
             loading: true,
             numBox: 12,
-            children: []
+            children: [],
+            headerEl:[]
         }
         this.addNewVideoBox = this
             .addNewVideoBox
-            .bind(this)
+            .bind(this);
+        this.addSelectedBox = this
+            .addSelectedBox
+            .bind(this)    
+            
     }
 
     componentDidMount() {
         this.setState({data: JSONResult, loading: false})
+        
     }
 
     // Old componentDidMount() {     fetch('./data/initial.json', {         headers:
@@ -37,7 +44,7 @@ export class Main extends Component {
         let item = data[randomNum];
         if (item["count"] < 4) {
             let counter = randFlag
-                ? Math.floor(Math.random() * 3)
+                ? Math.floor(Math.random() * 3) + 1
                 : 1;
             console.log("counter", counter)
             data[randomNum]["count"] = data[randomNum]["count"] + counter;
@@ -68,6 +75,35 @@ export class Main extends Component {
         }
         //console.log('c', this.state.data)
     }
+    addSelectedBox(url,count) {
+        console.log('addSelectedBox', url,count)
+         const randomHash = Math.floor(Math.random() * 105);
+         let className = 'badge-success'
+            if (count === 1 ) {
+                className = 'badge-success'
+            }
+            if (count === 2 || count === 3) {
+                className = 'badge-warning'
+            }
+            if (count === 4) {
+                className = 'badge-danger'
+            }
+        count = count+1
+        this
+                .state
+                .children
+                .push(<VideoBox
+                    key={url + randomHash}
+                    number={randomHash}
+                    url={url}
+                    count={count}
+                    id={url + randomHash}
+                    className={className}
+                    removeBox={this
+                    .removeBox
+                    .bind(this)}/>);
+    }
+
     removeBox(id) {
         // console.log('remove box ', id)
         const newState = this.state;
@@ -84,14 +120,31 @@ export class Main extends Component {
         this.setState(newState)
         //console.log('d', this.state.data)
     }
-    removeLocalStorage() {}
+    populateHeader() {
+        console.log('in this.populateHeader();')
+        const rand2 = Math.floor(Math.random() * 100)
+        console.log(this.state.data.length)
+        for ( let i =0; i< this.state.data.length ; i++) {
+            const rand = Math.floor(Math.random() * 100)
+            
+            this.state.headerEl.push(
+                <Header
+                    key ={rand2 + this.state.data[i].url + rand}
+                    url ={this.state.data[i].url}
+                    count = {this.state.data[i].count}
+                    addSelectedBox ={this.addSelectedBox}
+                    i = {i}
+                    />
+            )
+        }
+        this.state.headerEl.splice(this.state.data.length)
+    }
     render() {
         const {loading} = this.state;
 
-        let load = true;
-        if (!loading) {
-            load = false;
-        }
+        
+        //this.populateHeader();
+       
         return (
             <div>
                 {/* <Header /> */}
@@ -99,7 +152,7 @@ export class Main extends Component {
                 <nav className="navbar navbar-expand-lg  navbar-dark bg-dark mb-5">
                     <a className="navbar-brand " >
                         <span className="text-center">
-                            ut-Access v-1.03</span>
+                            ut-Access v-1.04</span>
                     </a>
                     <button
                         className="navbar-toggler"
@@ -115,7 +168,20 @@ export class Main extends Component {
                 </nav>
 
                 {/* container */}
-                <div className="container-fluid py-5 mx-3">
+                
+                {/* <div className="container-fluid my-3 py-5 mx-3" >
+                <a
+                                className="text-center btn btn-dark my-4 btn-lg btn-block"
+                                onClick={() => this.toggleHeader}>Hide
+                            </a>
+                     <div className="row" id="header">
+                         {!loading
+                            ? this.state.headerEl
+                            : <p>getting data</p>}
+                     </div>
+                </div> */}
+                
+                <div className="container-fluid my-5 py-5 mx-3">
                     <div className="row">
                         <div className="col-md-6">
                             <a
@@ -133,7 +199,7 @@ export class Main extends Component {
 
                     {/* {this.state.children.length ===0 ? <h1>Click on Add Box</h1>:<React.Fragment></React.Fragment>} */}
                     <div className="row">
-                        {!load
+                        {!loading
                             ? this.state.children
                             : <p>getting data</p>}
                     </div>
