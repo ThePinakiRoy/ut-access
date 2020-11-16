@@ -13,7 +13,8 @@ export class Main extends Component {
             loading: true,
             numBox: 12,
             children: [],
-            headerEl:[]
+            headerEl:[],
+            arrNum:0
         }
         this.addNewVideoBox = this
             .addNewVideoBox
@@ -25,7 +26,15 @@ export class Main extends Component {
     }
 
     componentDidMount() {
-        this.setState({data: JSONResult, loading: false})
+        const items = JSONResult //… your array, filled with values
+        const n = 20 //tweak this to add more items per line
+
+        const result = new Array(Math.ceil(items.length / n))
+            .fill()
+            .map(_ => items.splice(0, n))
+            console.log("result ",result)
+        let arrN =   Math.floor(Math.random() * result.length)  +1
+        this.setState({data: result[arrN], loading: false, arrNum:arrN})
         
     }
 
@@ -140,7 +149,7 @@ export class Main extends Component {
         this.state.headerEl.splice(this.state.data.length)
     }
     render() {
-        const {loading} = this.state;
+        const {loading, arrNum} = this.state;
 
         
         //this.populateHeader();
@@ -152,7 +161,7 @@ export class Main extends Component {
                 <nav className="navbar navbar-expand-lg  navbar-dark bg-dark mb-5">
                     <a className="navbar-brand " >
                         <span className="text-center">
-                            ut-Access v-1.04</span>
+                            ut-Access v-1.05 | x{arrNum}</span>
                     </a>
                     <button
                         className="navbar-toggler"
