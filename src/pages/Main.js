@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+﻿import React, {Component} from 'react'
 import VideoBox from '../components/VideoBox';
 import Header from '../components/Header';
 // import JSONResult from '../data/test.json';
@@ -27,13 +27,13 @@ export class Main extends Component {
 
     componentDidMount() {
         const items = JSONResult //… your array, filled with values
-        const n = 20 //tweak this to add more items per line
+        const n = 30 //tweak this to add more items per line
 
         const result = new Array(Math.ceil(items.length / n))
             .fill()
             .map(_ => items.splice(0, n))
             console.log("result ",result)
-        let arrN =   Math.floor(Math.random() * result.length)  +1
+        let arrN =   Math.floor(Math.random() * result.length)  
         this.setState({data: result[arrN], loading: false, arrNum:arrN})
         
     }
