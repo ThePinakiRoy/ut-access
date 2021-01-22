@@ -28,7 +28,7 @@ export class Main extends Component {
 
     componentDidMount() {
         const items = JSONResult //… your array, filled with values
-        const n = 32 //tweak this to add more items per line
+        const n = 33 //tweak this to add more items per line
 
         const result = new Array(Math.ceil(items.length / n))
             .fill()
