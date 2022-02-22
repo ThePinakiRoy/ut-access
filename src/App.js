@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { VideoList, VideoDetails, SearchBar } from './components';
 import { search } from './api/controller';
-
+// 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
 export class App extends Component {
   state = {
     videos : [],
@@ -30,23 +30,23 @@ export class App extends Component {
         <Grid container spacing={4}>
          
             <Grid item xs ={12}>
-                <Grid container spacing={8}>
-                <Grid item xs ={2}>
-                <h2>Nandini's Kitchen</h2>  
+                <Grid container spacing={3} alignItems="stretch">
+                  <Grid item sm ={2} xs={12}>
+                      <h2>Nandini's Kitchen</h2>  
+                  </Grid>
+                  <Grid item sm ={10} xs={12}>
+                      <SearchBar onFormSubmit={this.handleSubmit} />
+                  </Grid>
                 </Grid>
-                <Grid item xs ={10}>
-                    <SearchBar onFormSubmit={this.handleSubmit} />
-                </Grid>
-                </Grid>
-                <Grid container spacing={10}>
-                <Grid item xs={8}>
-                    <VideoDetails video = {selectedVideo} />
-                </Grid>
-                <Grid item xs={4}>
-                    <VideoList 
-                        onVideoSelect = {this.onVideoSelect}
-                        videos = {videos}/>
-                </Grid>
+                <Grid container spacing={3} alignItems="stretch">
+                  <Grid item sm={8} xs={12}>
+                      <VideoDetails video = {selectedVideo} />
+                  </Grid>
+                  <Grid item sm={4} xs={12}>
+                      <VideoList 
+                          onVideoSelect = {this.onVideoSelect}
+                          videos = {videos}/>
+                  </Grid>
                 </Grid>
             </Grid>
         </Grid>
